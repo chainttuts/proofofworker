@@ -13,12 +13,7 @@ function ProofOfWorker(){
 	
 	// Define  private functions for this module
 	
-		/* This function verifies that a difficulty is valid for a hashing algorithm
-		*
-		* Argument: difficultyExponent
-		* Argument: maxExponent
-		* Return: isValid
-		*/
+		// This function verifies that a difficulty is valid for a hashing algorithm
 		function isValidExponent(difficultyExponent, maxExponent)
 		{
 			if (isNaN(difficultyExponent))
@@ -35,13 +30,7 @@ function ProofOfWorker(){
 			}
 		}
 	
-		/* This function generates a proof of work nonce using SHA-256
-		*
-		* Argument: message
-		* Argument: difficultyExponent
-		* Return: nonce
-		*
-		*/
+		// This function generates a proof of work nonce using SHA-256
 		function generateNonceSha256(message, difficultyExponent)
 		{
 			if (!isValidExponent(difficultyExponent, 256))
@@ -86,11 +75,6 @@ function ProofOfWorker(){
 		* the message to append the nonce to, and the difficult target exponent.
 		* For example, for a difficulty target of 2^255 the user should specify 255.
 		* This function calls the appropriate worker function and returns the found nonce
-		*
-		* Argument: algorithm
-		* Argument: message
-		* Argument: difficultyExponent
-		* Return: nonce
 		*/
 		prove : function prove(algorithm, message, difficultyExponent)
 		{
