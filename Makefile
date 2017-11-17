@@ -4,16 +4,27 @@
 #
 
 # This block defines makefile variables
-LIB_FILES=src/lib/proofOfWorker.js src/lib/sha256.js
+LIB_FILES=src/lib/proofofworker.js src/lib/sha256.js
+SERVER_FILES=src/server/*.c
+SERVER_INCLUDES=src/server
+CC=gcc
+FLAGS=-I$(SERVER_INCLUDES) -lssl -lcrypto
 
-BUILD_DIR=bin/proofOfWorker
+BUILD_DIR=bin/proofofworker
+SERVER_DIR=bin/proofofworker_server
+SERVER_BIN=proofofworker
 
 # This rule builds the lib
 build: $(LIB_FILES)
 	mkdir -p $(BUILD_DIR)
 	cp $(LIB_FILES) $(BUILD_DIR)
 
-# This rule cleans the build directory
-clean: $(BUILD_DIR)
-	rm $(BUILD_DIR)/*
-	rmdir $(BUILD_DIR) 
+# This rule builds the server
+server: $(SERVER_FILES)
+	mkdir -p $(SERVER_DIR)
+	$(CC) -o $(SERVER_DIR)/$(SERVER_BIN) $(SERVER_FILES) $(FLAGS)
+
+# This rule cleans the build directories
+clean: $(BUILD_DIR) $(SERVER_DIR)
+	rm $(BUILD_DIR)/* $(SERVER_DIR)/*
+	rmdir $(BUILD_DIR) $(SERVER_DIR)
