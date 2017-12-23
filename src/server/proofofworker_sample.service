@@ -1,0 +1,16 @@
+# This file contains a sample script so the proofofworker validations
+# server can be run as a systemd service
+# It should be renamed "proofofworker.service" and execstart
+# should contain the path of the proofofworker server binary on your system
+#
+# Author: Josh McIntyre
+#
+
+[Unit]
+Description="A proof of work validation server"
+
+[Service]
+ExecStart=/home/myuser/proofofworker 8001
+
+[Install]
+WantedBy=multi-user.target

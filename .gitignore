@@ -5,3 +5,6 @@
 
 # Do not include built files
 bin/
+
+# Do not include configuration files
+src/server/proofofworker.service
