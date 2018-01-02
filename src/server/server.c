@@ -20,16 +20,16 @@ int run_server(const int port)
 		return SERVER_FAILURE;
 	}
 
-	/* Initialize the client connection */
-	client_descriptor = init_client(server_descriptor, &client_address);
-	if (client_descriptor == SERVER_FAILURE)
-	{
-		return SERVER_FAILURE;
-	}
-
-	/* Loop and accept verification requests as they come in */
+	/* Loop and accept client connections as they come in */
 	while (1)
 	{
+		/* Initialize the client connection */
+		client_descriptor = init_client(server_descriptor, &client_address);
+		if (client_descriptor == SERVER_FAILURE)
+		{
+			return SERVER_FAILURE;
+		}
+
 		/* Read the verification request from the socket with recv 
 		* A properly formed verification request string has the format 
 		* message:nonce:difficulty_exponent:algorithm
@@ -40,11 +40,13 @@ int run_server(const int port)
 		char result[RESULT_LENGTH];
 		process_verify_request(verify_request, result);
 
-		/* Write the confirmation back to the socket and close the connection */
+		/* Write the confirmation back to the socket and 
+		* wait for the client to close the connection
+		*/
 		write(client_descriptor, result, RESULT_LENGTH);
 	}
 
-	/* Close the socket when finished */
+	/* Close the server socket when finished */
 	close(server_descriptor);
 
 	return SERVER_SUCCESS;
