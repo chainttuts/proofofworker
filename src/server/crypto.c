@@ -112,12 +112,7 @@ int two_power(const int exponent)
 		return -1;
 	}
 
-	int result = 1;
-	int i;
-	for (i = 0; i < exponent; i++)
-	{
-		result = result * 2;
-	}
+	int result = 1 << exponent;
 
 	return result;
 }
