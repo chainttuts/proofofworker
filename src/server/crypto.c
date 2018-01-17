@@ -13,6 +13,7 @@
 int verify_sha256_nonce(const char* message, const char* nonce, const int difficulty_exponent)
 {
 	char buffer[MAX_INPUT_LENGTH];
+        strcpy(buffer, "");
 	strcat(buffer, message);
 	strcat(buffer, nonce);
 	unsigned char* input = (unsigned char*) buffer;
