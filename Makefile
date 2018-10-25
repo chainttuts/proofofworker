@@ -7,6 +7,7 @@
 LIB_FILES=src/lib/proofofworker.js src/lib/sha256.js
 SERVER_FILES=src/server/*.c
 SERVER_INCLUDES=src/server
+SERVER_SERVICE=src/server/proofofworker.service
 CC=gcc
 FLAGS=-I$(SERVER_INCLUDES) -lssl -lcrypto
 
@@ -23,6 +24,7 @@ build: $(LIB_FILES)
 server: $(SERVER_FILES)
 	mkdir -p $(SERVER_DIR)
 	$(CC) -o $(SERVER_DIR)/$(SERVER_BIN) $(SERVER_FILES) $(FLAGS)
+	cp $(SERVER_SERVICE) $(SERVER_DIR)
 
 # This rule cleans the build directories
 clean: $(BUILD_DIR) $(SERVER_DIR)
