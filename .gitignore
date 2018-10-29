@@ -6,5 +6,6 @@
 # Do not include built files
 bin/
 
-# Do not include configuration files
+# Do not include configuration files or files with custom config information
 src/server/proofofworker.service
+src/middleware/web_verify.php
