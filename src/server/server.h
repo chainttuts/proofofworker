@@ -9,6 +9,7 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <crypto.h>
+#include <pthread.h>
 
 #define SERVER_SUCCESS 0
 #define SERVER_FAILURE 1
@@ -22,6 +23,7 @@
 #define MAX_ALGORITHM_SIZE 32
 
 int run_server(const int port);
+void* validate_pow(void* desc);
 int init_server(struct sockaddr_in* server_address, const int port);
 int init_client(int server_descriptor, struct sockaddr_in* client_address);
 void process_verify_request(const char* verify_request, char* result);

@@ -9,7 +9,7 @@ SERVER_FILES=src/server/*.c
 SERVER_INCLUDES=src/server
 SERVER_SERVICE=src/server/proofofworker.service
 CC=gcc
-FLAGS=-I$(SERVER_INCLUDES) -lssl -lcrypto
+FLAGS=-I$(SERVER_INCLUDES) -lssl -lcrypto -lpthread
 MIDDLEWARE_FILES=src/middleware/*.php
 
 BUILD_DIR=bin/proofofworker

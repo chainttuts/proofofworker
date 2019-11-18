@@ -30,6 +30,26 @@ int run_server(const int port)
 			return SERVER_FAILURE;
 		}
 
+		/* Create a thread for the connection */
+		pthread_t client_thread;
+		int* t_sock = (int*) malloc(1);
+		*t_sock = client_descriptor;
+
+		pthread_create(&client_thread, NULL, validate_pow, (void*) t_sock);
+
+		pthread_join(client_thread, NULL);
+	}
+
+	/* Close the server socket when finished */
+	close(server_descriptor);
+
+	return SERVER_SUCCESS;
+}
+
+void* validate_pow(void* desc)
+{
+	int client_descriptor = *(int*) desc;
+
 		/* Read the verification request from the socket with recv 
 		* A properly formed verification request string has the format 
 		* message:nonce:difficulty_exponent:algorithm
@@ -44,12 +64,6 @@ int run_server(const int port)
 		* wait for the client to close the connection
 		*/
 		write(client_descriptor, result, RESULT_LENGTH);
-	}
-
-	/* Close the server socket when finished */
-	close(server_descriptor);
-
-	return SERVER_SUCCESS;
 }
 
 /* This function initializes a socket the server will need on the specified port */
